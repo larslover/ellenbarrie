@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Meet the Children | Ellenbarrie Children's Home
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    .children-header {
+        padding: 90px 20px 70px;
+        text-align: center;
+    }
+
+    .children-header h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .children-header p {
+        max-width: 700px;
+        margin: 0 auto;
+        color: #6c757d;
+        font-size: 1.15rem;
+        line-height: 1.8;
+    }
+
+
+    .children-section {
+        padding: 20px 0 100px;
+    }
+
+
+    .child {
+        margin-bottom: 100px;
+    }
+
+
+    .child-image {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 18px;
+    }
+
+
+    .child-story {
+        padding: 30px 45px;
+    }
+
+
+    .child-name {
+        font-size: 2.3rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+
+    .child-meta {
+        color: #6c757d;
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+
+
+    .child-text {
+        color: #495057;
+        font-size: 1.1rem;
+        line-height: 1.9;
+    }
+
+
+    @media (max-width: 767px) {
+
+        .children-header {
+            padding: 60px 20px 50px;
+        }
+
+        .children-header h1 {
+            font-size: 2.6rem;
+        }
+
+        .child {
+            margin-bottom: 70px;
+        }
+
+        .child-story {
+            padding: 30px 10px;
+        }
+
+        .child-name {
+            font-size: 2rem;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+
+<section class="children-header">
+
+    <h1>
+        Meet the Children
+    </h1>
+
+    <p>
+        Every child has a story, a unique personality,
+        and a future filled with hope. Get to know some
+        of the children who are part of our home.
+    </p>
+
+</section>
+
+
+<!-- ============================================================
+     CHILDREN
+     ============================================================ -->
+
+<section class="children-section">
+
+    <div class="container">
+
+        {% for child in children %}
+
+            <div class="row align-items-center child g-5">
+
+                {% if forloop.counter|divisibleby:2 %}
+
+                    <!-- STORY LEFT -->
+
+                    <div class="col-lg-6 order-2 order-lg-1">
+
+                        <div class="child-story">
+
+                            <h2 class="child-name">
+                                {{ child.name }}
+                            </h2>
+
+                            {% if child.age %}
+
+                                <div class="child-meta">
+                                    {{ child.age }} years old
+                                </div>
+
+                            {% endif %}
+
+                            <div class="child-text">
+
+                                {{ child.story|linebreaks }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- IMAGE RIGHT -->
+
+                    <div class="col-lg-6 order-1 order-lg-2">
+
+                        <img
+                            src="{{ child.image.url }}"
+                            alt="{{ child.name }}"
+                            class="child-image"
+                        >
+
+                    </div>
+
+                {% else %}
+
+                    <!-- IMAGE LEFT -->
+
+                    <div class="col-lg-6">
+
+                        <img
+                            src="{{ child.image.url }}"
+                            alt="{{ child.name }}"
+                            class="child-image"
+                        >
+
+                    </div>
+
+
+                    <!-- STORY RIGHT -->
+
+                    <div class="col-lg-6">
+
+                        <div class="child-story">
+
+                            <h2 class="child-name">
+                                {{ child.name }}
+                            </h2>
+
+                            {% if child.age %}
+
+                                <div class="child-meta">
+                                    {{ child.age }} years old
+                                </div>
+
+                            {% endif %}
+
+                            <div class="child-text">
+
+                                {{ child.story|linebreaks }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        {% empty %}
+
+            <div class="text-center text-muted">
+
+                <p>
+                    Information about our children will
+                    be available soon.
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+{% endblock %}

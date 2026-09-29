@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}
+History | Ellenbarrie Children's Home
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    .history-header {
+        padding: 100px 0 70px;
+        text-align: center;
+    }
+
+    .history-header h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+    }
+
+    .history-header p {
+        max-width: 700px;
+        margin: 20px auto 0;
+        color: #6c757d;
+        font-size: 1.1rem;
+    }
+
+
+    .timeline {
+        position: relative;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 30px 0 80px;
+    }
+
+
+    /* Vertical line */
+
+    .timeline::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        background: #dee2e6;
+        transform: translateX(-50%);
+    }
+
+
+    .timeline-entry {
+        position: relative;
+        display: flex;
+        width: 100%;
+        margin-bottom: 90px;
+    }
+
+
+    .timeline-entry:nth-child(odd) {
+        justify-content: flex-start;
+    }
+
+
+    .timeline-entry:nth-child(even) {
+        justify-content: flex-end;
+    }
+
+
+    .timeline-content {
+        width: 45%;
+        background: #fff;
+    }
+
+
+    .timeline-entry:nth-child(odd) .timeline-content {
+        text-align: right;
+    }
+
+
+    .timeline-entry:nth-child(even) .timeline-content {
+        text-align: left;
+    }
+
+
+    .timeline-image {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+
+    .timeline-year {
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+
+    .timeline-title {
+        font-size: 1.7rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+
+    .timeline-text {
+        color: #6c757d;
+        line-height: 1.8;
+    }
+
+
+    /* Timeline dot */
+
+    .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: 10px;
+        width: 16px;
+        height: 16px;
+        background: #fff;
+        border: 3px solid #0d6efd;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+
+
+    @media (max-width: 767px) {
+
+        .history-header {
+            padding: 70px 20px 50px;
+        }
+
+        .history-header h1 {
+            font-size: 2.5rem;
+        }
+
+
+        .timeline {
+            padding-left: 30px;
+            padding-right: 20px;
+        }
+
+
+        .timeline::before {
+            left: 8px;
+        }
+
+
+        .timeline-entry,
+        .timeline-entry:nth-child(odd),
+        .timeline-entry:nth-child(even) {
+            justify-content: flex-start;
+        }
+
+
+        .timeline-content,
+        .timeline-entry:nth-child(odd) .timeline-content,
+        .timeline-entry:nth-child(even) .timeline-content {
+            width: 100%;
+            text-align: left;
+        }
+
+
+        .timeline-dot {
+            left: 8px;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="history-header">
+
+    <div class="container">
+
+        <h1>Our History</h1>
+
+        <p>
+            The story of Ellenbarrie Children's Home,
+            the people who have been part of it,
+            and the journey that has brought us to where we are today.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="container">
+
+    <div class="timeline">
+
+        {% for entry in entries %}
+
+            <article class="timeline-entry">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-content">
+
+                    {% if entry.image %}
+                        <img
+                            src="{{ entry.image.url }}"
+                            alt="{{ entry.title }}"
+                            class="timeline-image"
+                        >
+                    {% endif %}
+
+                    <div class="timeline-year">
+                        {{ entry.year }}
+                    </div>
+
+                    <h2 class="timeline-title">
+                        {{ entry.title }}
+                    </h2>
+
+                    <div class="timeline-text">
+                        {{ entry.content|linebreaks }}
+                    </div>
+
+                </div>
+
+            </article>
+
+        {% empty %}
+
+            <div class="text-center py-5">
+
+                <p class="text-muted">
+                    Our history is currently being prepared.
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

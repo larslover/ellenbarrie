@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block title %}
+Agriculture Project | Ellenbarrie Children's Home
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+
+    .farming-hero {
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        background: #f5f7f2;
+    }
+
+    .farming-hero-content {
+        padding: 80px 0;
+    }
+
+    .farming-hero h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 25px;
+    }
+
+    .farming-hero p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #6c757d;
+        max-width: 600px;
+    }
+
+    .farming-hero-image {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        border-radius: 18px;
+    }
+
+
+    /* ============================================================
+       UPDATES HEADER
+       ============================================================ */
+
+    .updates-section {
+        padding: 100px 0;
+    }
+
+    .updates-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .updates-header h2 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .updates-header p {
+        max-width: 650px;
+        margin: 0 auto;
+        color: #6c757d;
+        font-size: 1.1rem;
+    }
+
+
+    /* ============================================================
+       UPDATE CARDS
+       ============================================================ */
+
+    .update-card {
+        height: 100%;
+        border: 0;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .update-image {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+    }
+
+    .update-content {
+        padding: 25px;
+    }
+
+    .update-date {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #6c757d;
+        margin-bottom: 10px;
+    }
+
+    .update-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .update-text {
+        color: #6c757d;
+        line-height: 1.7;
+    }
+
+
+    /* ============================================================
+       MOBILE
+       ============================================================ */
+
+    @media (max-width: 767px) {
+
+        .farming-hero {
+            min-height: auto;
+        }
+
+        .farming-hero-content {
+            padding: 60px 20px;
+        }
+
+        .farming-hero h1 {
+            font-size: 2.8rem;
+        }
+
+        .farming-hero-image {
+            height: 350px;
+            border-radius: 0;
+        }
+
+        .updates-section {
+            padding: 70px 20px;
+        }
+
+        .updates-header h2 {
+            font-size: 2.3rem;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+
+{% if hero %}
+
+<section class="farming-hero">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                <div class="farming-hero-content">
+
+                    <h1>
+                        {{ hero.title }}
+                    </h1>
+
+                    {% if hero.subtitle %}
+
+                        <p>
+                            {{ hero.subtitle }}
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <img
+                    src="{{ hero.image.url }}"
+                    alt="{{ hero.title }}"
+                    class="farming-hero-image"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+<!-- ============================================================
+     UPDATES
+     ============================================================ -->
+
+<section class="updates-section">
+
+    <div class="container">
+
+        <div class="updates-header">
+
+            <h2>
+                Project Updates
+            </h2>
+
+            <p>
+                Follow the progress of our agriculture project
+                and see what is happening as the project grows.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for update in updates %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <article class="update-card">
+
+                        {% if update.image %}
+
+                            <img
+                                src="{{ update.image.url }}"
+                                alt="{{ update.title }}"
+                                class="update-image"
+                            >
+
+                        {% endif %}
+
+
+                        <div class="update-content">
+
+                            <div class="update-date">
+
+                                {{ update.date|date:"F Y" }}
+
+                            </div>
+
+
+                            <h3 class="update-title">
+
+                                {{ update.title }}
+
+                            </h3>
+
+
+                            <div class="update-text">
+
+                                {{ update.content|linebreaks }}
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            {% empty %}
+
+                <div class="col-12">
+
+                    <p class="text-center text-muted">
+
+                        There are currently no agriculture updates.
+
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}
