@@ -13,4 +13,5 @@ urlpatterns = [
     views.service_worker,
     name='service_worker'
 ),
+path("school/", views.school, name="school"),
 ]

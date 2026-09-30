@@ -6,7 +6,8 @@ from .models import (
     HistoryEntry,
     FarmingHero,
     FarmingUpdate,
-    Child
+    Child,
+    School,
 )
 
 
@@ -77,4 +78,12 @@ def service_worker(request):
     return HttpResponse(
         content,
         content_type='application/javascript'
+    )
+def school(request):
+    school = School.objects.filter(is_active=True).first()
+
+    return render(
+        request,
+        "core/school.html",
+        {"school": school}
     )

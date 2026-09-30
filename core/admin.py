@@ -6,6 +6,7 @@ from .models import (
     FarmingHero,
     FarmingUpdate,
     Child,
+    School,
 )
 
 
@@ -106,4 +107,26 @@ class ChildAdmin(admin.ModelAdmin):
     ordering = (
         'order',
         'name',
+    )
+# ============================================================
+# GREEN VALLEY ENGLISH SCHOOL
+# ============================================================
+
+@admin.register(School)
+class SchoolAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "name",
+        "is_active",
+        "updated_at",
+    )
+
+    list_filter = (
+        "is_active",
+    )
+
+    search_fields = (
+        "name",
+        "introduction",
+        "address",
     )

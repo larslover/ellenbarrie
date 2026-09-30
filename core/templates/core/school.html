@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ school.name }} | Ellenbarrie Children's Home
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    /* ============================================================
+       SCHOOL HEADER
+       ============================================================ */
+
+    .school-header {
+        padding: 100px 0 70px;
+        text-align: center;
+    }
+
+    .school-header h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+    }
+
+    .school-header p {
+        max-width: 750px;
+        margin: 20px auto 0;
+        color: #6c757d;
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+
+    /* ============================================================
+       SCHOOL CONTENT
+       ============================================================ */
+
+    .school-content {
+        padding-bottom: 100px;
+    }
+
+    .school-image {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        border-radius: 16px;
+    }
+
+    .school-text {
+        line-height: 1.8;
+        color: #6c757d;
+    }
+
+    .school-address {
+        margin-top: 25px;
+        color: #6c757d;
+    }
+
+
+    /* ============================================================
+       MOBILE
+       ============================================================ */
+
+    @media (max-width: 767px) {
+
+        .school-header {
+            padding: 70px 20px 50px;
+        }
+
+        .school-header h1 {
+            font-size: 2.5rem;
+        }
+
+        .school-content {
+            padding-bottom: 60px;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+{% if school %}
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+
+<section class="school-header">
+
+    <div class="container">
+
+        <h1>
+            {{ school.name }}
+        </h1>
+
+        {% if school.introduction %}
+
+            <p>
+                {{ school.introduction }}
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- ============================================================
+     CONTENT
+     ============================================================ -->
+
+<section class="container school-content">
+
+    <div class="row align-items-center g-5">
+
+        {% if school.image %}
+
+            <div class="col-lg-6">
+
+                <img
+                    src="{{ school.image.url }}"
+                    alt="{{ school.name }}"
+                    class="school-image"
+                >
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="col-lg-6">
+
+            {% if school.introduction %}
+
+                <div class="school-text">
+                    {{ school.introduction|linebreaks }}
+                </div>
+
+            {% endif %}
+
+
+            {% if school.address %}
+
+                <div class="school-address">
+
+                    <strong>Location</strong><br>
+
+                    {{ school.address }}
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% else %}
+
+<section class="container py-5 text-center">
+
+    <p class="text-muted">
+        School information is currently being prepared.
+    </p>
+
+</section>
+
+{% endif %}
+
+{% endblock %}
