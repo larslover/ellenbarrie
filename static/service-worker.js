@@ -1,4 +1,4 @@
-const CACHE_NAME = "ellenbarrie-v5";
+const CACHE_NAME = "ellenbarrie-v6";
 
 const FILES_TO_CACHE = [
     "/static/manifest.json"
