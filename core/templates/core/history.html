@@ -9,6 +9,10 @@ History | Ellenbarrie Children's Home
 
 <style>
 
+    /* ============================================================
+       HEADER
+       ============================================================ */
+
     .history-header {
         padding: 100px 0 70px;
         text-align: center;
@@ -26,6 +30,10 @@ History | Ellenbarrie Children's Home
         font-size: 1.1rem;
     }
 
+
+    /* ============================================================
+       TIMELINE
+       ============================================================ */
 
     .timeline {
         position: relative;
@@ -49,6 +57,10 @@ History | Ellenbarrie Children's Home
     }
 
 
+    /* ============================================================
+       TIMELINE ENTRY
+       ============================================================ */
+
     .timeline-entry {
         position: relative;
         display: flex;
@@ -61,11 +73,14 @@ History | Ellenbarrie Children's Home
         justify-content: flex-start;
     }
 
-
     .timeline-entry:nth-child(even) {
         justify-content: flex-end;
     }
 
+
+    /* ============================================================
+       CONTENT
+       ============================================================ */
 
     .timeline-content {
         width: 45%;
@@ -77,11 +92,14 @@ History | Ellenbarrie Children's Home
         text-align: right;
     }
 
-
     .timeline-entry:nth-child(even) .timeline-content {
         text-align: left;
     }
 
+
+    /* ============================================================
+       IMAGE
+       ============================================================ */
 
     .timeline-image {
         width: 100%;
@@ -92,6 +110,10 @@ History | Ellenbarrie Children's Home
     }
 
 
+    /* ============================================================
+       YEAR
+       ============================================================ */
+
     .timeline-year {
         display: inline-block;
         font-size: 1rem;
@@ -100,6 +122,10 @@ History | Ellenbarrie Children's Home
     }
 
 
+    /* ============================================================
+       TITLE
+       ============================================================ */
+
     .timeline-title {
         font-size: 1.7rem;
         font-weight: 700;
@@ -107,27 +133,43 @@ History | Ellenbarrie Children's Home
     }
 
 
+    /* ============================================================
+       TEXT
+       ============================================================ */
+
     .timeline-text {
         color: #6c757d;
         line-height: 1.8;
     }
 
 
-    /* Timeline dot */
+    /* ============================================================
+       TIMELINE DOT
+       ============================================================ */
 
     .timeline-dot {
         position: absolute;
+
+        /* Align with the year rather than the image */
+        top: 50px;
         left: 50%;
-        top: 10px;
+
         width: 16px;
         height: 16px;
+
         background: #fff;
         border: 3px solid #0d6efd;
         border-radius: 50%;
+
         transform: translateX(-50%);
+
         z-index: 2;
     }
 
+
+    /* ============================================================
+       MOBILE
+       ============================================================ */
 
     @media (max-width: 767px) {
 
@@ -135,21 +177,25 @@ History | Ellenbarrie Children's Home
             padding: 70px 20px 50px;
         }
 
+
         .history-header h1 {
             font-size: 2.5rem;
         }
 
 
         .timeline {
-            padding-left: 30px;
-            padding-right: 20px;
+            padding: 30px 20px 60px 30px;
         }
 
+
+        /* Move timeline line to the left */
 
         .timeline::before {
             left: 8px;
         }
 
+
+        /* All entries become one column */
 
         .timeline-entry,
         .timeline-entry:nth-child(odd),
@@ -157,6 +203,8 @@ History | Ellenbarrie Children's Home
             justify-content: flex-start;
         }
 
+
+        /* Full-width content */
 
         .timeline-content,
         .timeline-entry:nth-child(odd) .timeline-content,
@@ -166,8 +214,11 @@ History | Ellenbarrie Children's Home
         }
 
 
+        /* Move dot onto the mobile timeline */
+
         .timeline-dot {
             left: 8px;
+            top: 50px;
         }
 
     }
@@ -179,17 +230,31 @@ History | Ellenbarrie Children's Home
 
 {% block content %}
 
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+
 <section class="history-header">
 
     <div class="container">
 
+        <h1>
+            Our History
+        </h1>
 
-    
+        <p>
+            The story of Ellenbarrie Children's Home
+        </p>
 
     </div>
 
 </section>
 
+
+<!-- ============================================================
+     TIMELINE
+     ============================================================ -->
 
 <section class="container">
 
@@ -199,28 +264,44 @@ History | Ellenbarrie Children's Home
 
             <article class="timeline-entry">
 
+                <!-- Timeline dot -->
+
                 <div class="timeline-dot"></div>
+
+
+                <!-- Timeline content -->
 
                 <div class="timeline-content">
 
                     {% if entry.image %}
+
                         <img
                             src="{{ entry.image.url }}"
                             alt="{{ entry.title }}"
                             class="timeline-image"
                         >
+
                     {% endif %}
 
+
                     <div class="timeline-year">
+
                         {{ entry.year }}
+
                     </div>
 
+
                     <h2 class="timeline-title">
+
                         {{ entry.title }}
+
                     </h2>
 
+
                     <div class="timeline-text">
+
                         {{ entry.content|linebreaks }}
+
                     </div>
 
                 </div>
@@ -232,7 +313,9 @@ History | Ellenbarrie Children's Home
             <div class="text-center py-5">
 
                 <p class="text-muted">
+
                     Our history is currently being prepared.
+
                 </p>
 
             </div>
@@ -242,5 +325,6 @@ History | Ellenbarrie Children's Home
     </div>
 
 </section>
+
 
 {% endblock %}
