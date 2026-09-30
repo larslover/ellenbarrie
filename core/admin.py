@@ -7,6 +7,7 @@ from .models import (
     FarmingUpdate,
     Child,
     School,
+    HomeUpdate,
 )
 
 
@@ -129,4 +130,35 @@ class SchoolAdmin(admin.ModelAdmin):
         "name",
         "introduction",
         "address",
+    )
+
+# ============================================================
+# HOME UPDATES
+# ============================================================
+
+@admin.register(HomeUpdate)
+class HomeUpdateAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "date",
+        "category",
+        "title",
+        "is_active",
+        "order",
+    )
+
+    list_filter = (
+        "category",
+        "is_active",
+        "date",
+    )
+
+    search_fields = (
+        "title",
+        "content",
+    )
+
+    ordering = (
+        "-date",
+        "order",
     )

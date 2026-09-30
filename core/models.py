@@ -252,3 +252,75 @@ class School(models.Model):
 
     def __str__(self):
         return self.name
+
+# ============================================================
+# HOME UPDATES
+# ============================================================
+
+class HomeUpdate(models.Model):
+
+    CATEGORY_CHOICES = [
+        ('children', "Children's Home"),
+        ('school', 'Green Valley English School'),
+        ('agriculture', 'Agriculture'),
+        ('general', 'General'),
+    ]
+
+    date = models.DateField()
+
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default='general',
+    )
+
+    title = models.CharField(
+        max_length=200
+    )
+
+    content = models.TextField()
+
+    image = models.ImageField(
+        upload_to='updates/',
+        blank=True,
+        null=True,
+    )
+
+    is_active = models.BooleanField(
+        default=True
+    )
+
+    order = models.PositiveIntegerField(
+        default=0
+    )
+
+    class Meta:
+        ordering = ['-date', 'order']
+        verbose_name = 'Home Update'
+        verbose_name_plural = 'Home Updates'
+
+    def __str__(self):
+        return f'{self.date} - {self.title}'
+
+    def save(self, *args, **kwargs):
+
+        if self.image and self.pk:
+
+            old = HomeUpdate.objects.get(pk=self.pk)
+
+            if old.image != self.image:
+                process_image(
+                    self.image,
+                    max_width=1600,
+                    max_height=1200,
+                )
+
+        elif self.image:
+
+            process_image(
+                self.image,
+                max_width=1600,
+                max_height=1200,
+            )
+
+        super().save(*args, **kwargs)
